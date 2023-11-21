@@ -30,6 +30,7 @@ USE Labb1_Bokhandel;
 --		CONSTRAINT FK_AuthorId_Authors FOREIGN KEY (AuthorId) REFERENCES Authors(Id)
 --	);
 
+
 --CREATE TABLE Books
 --(
 --	[Isbn13] NVARCHAR(13) PRIMARY KEY CHECK((Isbn13 NOT LIKE '%[^0-9]%') AND LEN(Isbn13) = 13) NOT NULL,
@@ -38,6 +39,21 @@ USE Labb1_Bokhandel;
 --	[Price] INT,
 --	[Publishing_Date] DATETIME2
 --);
+
+--ALTER TABLE Books
+--ALTER COLUMN [Title] NVARCHAR(50) NOT NULL;
+--ALTER TABLE Books
+--ALTER COLUMN [Price] FLOAT NOT NULL;
+--ALTER TABLE Books
+--ALTER COLUMN Publishing_Date DATE;
+
+--ALTER TABLE Books
+--ADD GenreId INT;
+--ALTER TABLE Books
+--ADD FOREIGN KEY (GenreId) REFERENCES Genres([Id]);
+
+
+
 
 --CREATE TABLE Author_Book
 --	(
@@ -48,14 +64,16 @@ USE Labb1_Bokhandel;
 --      CONSTRAINT [FK_BookId_Books] FOREIGN KEY ([Isbn13]) REFERENCES Books(Isbn13)
 --	);
 
---CREATE TABLE Genres
---(
---	[Id] INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
---	[Book_Isbn] NVARCHAR(13) FOREIGN KEY REFERENCES Books([Isbn13]),
---	[Name] NVARCHAR(20),
---	CONSTRAINT [Book_Isbn] CHECK((Book_Isbn NOT LIKE '%[^0-9]%') AND LEN(Book_Isbn) = 13)
+CREATE TABLE Genres
+(
+	[Id] INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	[Book_Isbn] NVARCHAR(13) FOREIGN KEY REFERENCES Books([Isbn13]),
+	[Name] NVARCHAR(20),
+	CONSTRAINT [Book_Isbn] CHECK((Book_Isbn NOT LIKE '%[^0-9]%') AND LEN(Book_Isbn) = 13)
 
---);
+);
+
+--FK__Genres__Book_Isb__2F2FFC0C
 
 --CREATE TABLE Customers
 --(	
@@ -138,4 +156,19 @@ USE Labb1_Bokhandel;
 --	(6,12),
 --	(7,12);
 
+INSERT INTO GENRES
+VALUES
+(
+
+--INSERT INTO Books
+--VALUES
+--('9789144135991', 'Perspektiv på utvärdering', 'Svenska', 348.0, '2020-05-13'),
+--('9789113125725', 'Under mullbärsträdet', 'Svenska', 249.0, '2023-09-27'),
+--('9789129697285', 'Här kommer Pippi Långstrump', 'Svenska', 99.0, '2015-04-20'),
+--('9789129688313', 'Bröderna Lejonhjärta',  'Svenska', 149.0, '2013-09-26'),
+--('9789129717211', 'Mio min Mio', 'Svenska', 229.0, '2020-09-18'),
+--('9789174295788', 'Ett öga rött', 'Svenska', 89.0, '2017-01-11'),
+--('9789100800765', 'Systrarna', 'Svenska', 269.0, '2023-09-04'),
+--('9780062316110', 'Sapiens: A brief history of humankind', 'Engelska', '174.0', '2018-05-01'),
+--('9780006479888', 'A Game of Thrones', 'Engelska', 98.0, '1997-04-01');
 
