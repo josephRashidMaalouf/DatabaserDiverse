@@ -138,7 +138,7 @@ USE Labb1_Bokhandel2;
 --	('Yuval Noah', 'Harari', '1976-02-24'),
 --	('Bo', 'Sandberg', '1952-06-29'),
 --	('Sven', 'Faugert', '1945-10-12');
-
+UPDATE Authors SET Birthday = '1988-09-16' WHERE [First Name] = 'Zhiwar';
 
 
 --INSERT INTO Publisher_Author (AuthorId, PublisherId) 
@@ -274,3 +274,15 @@ USE Labb1_Bokhandel2;
 --JOIN Stores ON Stores.Id = Orders.[Store Id]
 --JOIN Order_Book ON Order_Book.OrderId = Orders.Id
 --JOIN Books ON Books.Isbn13 = Order_Book.Isbn13;
+
+----### CREATE Views ### ---
+
+--CREATE VIEW [TitlarPerFörfattare] AS
+--SELECT ([First Name] + ' ' + [Last Name]) AS [Name], DATEDIFF(year, [Birthday], GETDATE()) AS [Age], COUNT(DISTINCT [Title]) AS [Titles], SUM(Quantity * [Price]) AS [Inventory value]
+--FROM Authors
+--FULL JOIN Author_Book ON Author_Book.AuthorId = Authors.Id
+--FULL JOIN Books ON Books.Isbn13 = Author_Book.Isbn13
+--FULL JOIN IventoryBalance ON IventoryBalance.Isbn13 = Books.Isbn13
+--GROUP BY [First Name] + ' ' + [Last Name], [Birthday];
+
+--SELECT * FROM TitlarPerFörfattare;
