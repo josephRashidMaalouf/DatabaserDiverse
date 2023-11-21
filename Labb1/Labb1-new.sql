@@ -286,3 +286,31 @@ USE Labb1_Bokhandel2;
 --GROUP BY [First Name] + ' ' + [Last Name], [Birthday];
 
 --SELECT * FROM TitlarPerFörfattare;
+
+
+
+
+----This view displays the most successful book stores in term of sales. This is useful for the executive director of the store chain when making decisions about things such as investments and promotions.
+
+--CREATE VIEW [MostSuccessfulStore] AS
+--SELECT [Name] AS [Book store], COUNT([Store Id]) AS [Sales], SUM([Price]) AS [Total revenue]
+--FROM Stores 
+--JOIN Orders ON Stores.Id = Orders.[Store Id]
+--JOIN Order_Book ON Order_Book.OrderId = Orders.Id
+--JOIN Books ON Books.Isbn13 = Order_Book.Isbn13
+--GROUP BY [Name];
+
+
+
+----This view shows the prefered genre by each customer. This is useful for tailoring offers and recommendations that are relevant for the customers.
+
+--CREATE VIEW [CustomersGenrePrefrences] AS
+--SELECT [First Name] + ' ' + [Last Name] AS [Name], Genres.[Name] AS [Genre], COUNT(Genres.[Name]) AS [Books of this genre bought]
+--FROM Customers
+--JOIN Orders ON Customers.Id = Orders.[Customer Id]
+--JOIN Stores ON Stores.Id = Orders.[Store Id]
+--JOIN Order_Book ON Order_Book.OrderId = Orders.Id
+--JOIN Books ON Books.Isbn13 = Order_Book.Isbn13
+--JOIN Genres ON Genres.Id = Books.GenreId
+--GROUP BY [First Name] + ' ' + [Last Name], Genres.[Name];
+
