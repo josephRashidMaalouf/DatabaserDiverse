@@ -138,7 +138,7 @@ USE Labb1_Bokhandel2;
 --	('Yuval Noah', 'Harari', '1976-02-24'),
 --	('Bo', 'Sandberg', '1952-06-29'),
 --	('Sven', 'Faugert', '1945-10-12');
-UPDATE Authors SET Birthday = '1988-09-16' WHERE [First Name] = 'Zhiwar';
+--UPDATE Authors SET Birthday = '1988-09-16' WHERE [First Name] = 'Zhiwar';
 
 
 --INSERT INTO Publisher_Author (AuthorId, PublisherId) 
