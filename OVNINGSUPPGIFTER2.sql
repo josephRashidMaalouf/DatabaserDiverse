@@ -100,6 +100,6 @@ SELECT CompanyName, ProductName, Quantity, d.Id, ShippedDate
 FROM company.suppliers AS s
 JOIN company.products AS p ON p.SupplierId = s.Id
 JOIN company.order_details AS d ON d.ProductId = p.Id
-JOIN company.orders AS o ON d.OrderId = o.id;
-
+JOIN company.orders AS o ON d.OrderId = o.id
+WHERE ShippedDate LIKE ('2013-06%') OR ShippedDate LIKE ('2013-07%') OR ShippedDate LIKE ('2013-08%');
 
