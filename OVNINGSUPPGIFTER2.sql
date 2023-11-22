@@ -54,12 +54,12 @@ USE everyloop;
 -- 3. Av de produkter som inte längre finns I vårat sortiment, hur mycket har vi sålt för totalt till Tyskland?
 
 
-SELECT COUNT(ProductName) AS [Total products sold], COUNT(DISTINCT ProductName) AS [Unique products sold] , ShipCountry
-FROM company.products AS p
-JOIN company.order_details AS d ON p.Id = d.ProductId
-JOIN company.orders AS o ON o.Id = d.OrderId
-WHERE ShipCountry = 'Germany' AND Discontinued = 1
-GROUP BY ShipCountry;
+--SELECT COUNT(ProductName) AS [Total products sold], COUNT(DISTINCT ProductName) AS [Unique products sold] , ShipCountry
+--FROM company.products AS p
+--JOIN company.order_details AS d ON p.Id = d.ProductId
+--JOIN company.orders AS o ON o.Id = d.OrderId
+--WHERE ShipCountry = 'Germany' AND Discontinued = 1
+--GROUP BY ShipCountry;
 
 --## SVAR: Totalt 14 utgångna varor har sålts till Tyskland, varav 7 unika produkter.
 --## Förklaring: 
@@ -70,5 +70,36 @@ GROUP BY ShipCountry;
 -- 4. För vilken produktkategori har vi högst lagervärde?
 
 
+--SELECT TOP 1 CategoryName, SUM(UnitsInStock) AS [Units in stock]
+--FROM company.categories AS c
+--JOIN Company.products AS p ON  c.Id = p.CategoryId
+--GROUP BY CategoryName
+--ORDER BY [Units in stock] DESC;
+
+--## SVAR: Seafood har högst lagervärde (701 produkter)
+--## Förklaring:
+--Jag kopplade först ihop categories med products. Därefter tog jag ut kategorinamnen och summan av antalet produkter per kategori.
+--Därefter sorterade jag listan i fallande ordning, och valde ut den kategori som låg högst upp, vilket var seafood.
+
 
 -- 5. Från vilken leverantör har vi sålt flest produkter totalt under sommaren 2013?
+
+SELECT *
+FROM company.suppliers AS s
+JOIN company.products AS p ON p.SupplierId = s.Id
+JOIN company.order_details AS d ON d.ProductId = p.Id
+JOIN company.orders AS o ON d.OrderId = o.id;
+
+SELECT CompanyName, ProductName, Quantity, d.Id, ShippedDate
+FROM company.suppliers AS s
+JOIN company.products AS p ON p.SupplierId = s.Id
+JOIN company.order_details AS d ON d.ProductId = p.Id
+JOIN company.orders AS o ON d.OrderId = o.id;
+
+SELECT CompanyName, ProductName, Quantity, d.Id, ShippedDate
+FROM company.suppliers AS s
+JOIN company.products AS p ON p.SupplierId = s.Id
+JOIN company.order_details AS d ON d.ProductId = p.Id
+JOIN company.orders AS o ON d.OrderId = o.id;
+
+
