@@ -224,7 +224,7 @@ GO
 
 --SELECT 
 --	p.Name AS [Playlist],
---	COUNT(ar.Name)  AS [No of Artists]
+--	COUNT(DISTINCT ar.Name)  AS [No of Artists]
 --FROM music.playlists p
 --	JOIN music.playlist_track pjt ON p.PlaylistId = pjt.PlaylistId
 --	JOIN music.tracks t ON pjt.TrackId = t.TrackId
@@ -236,13 +236,12 @@ GO
 --GROUP BY p.Name
 --ORDER BY [No of Artists] DESC;
 
-----## SVAR: Spellistan Music har flest artister: 6578 st.
+----## SVAR: Spellistan Music har flest artister: 198 st.
 
 --5. Vilket är det genomsnittliga antalet artister per spellista?
-
 SELECT 
 	p.Name AS [Playlist],
-	COUNT(ar.Name)  AS [No of Artists]
+	COUNT(DISTINCT ar.Name)  AS [No of Artists]
 FROM music.playlists p
 	JOIN music.playlist_track pjt ON p.PlaylistId = pjt.PlaylistId
 	JOIN music.tracks t ON pjt.TrackId = t.TrackId
@@ -253,3 +252,15 @@ FROM music.playlists p
 WHERE m.Name LIKE '%audio%'
 GROUP BY p.Name
 ORDER BY [No of Artists] DESC;
+
+
+--SELECT 
+--	CONVERT(FLOAT, COUNT(p.Name) / COUNT(DISTINCT ar.Name)) / 1.0  AS [Avarage number of artists per playlist]
+--FROM music.playlists p
+--	JOIN music.playlist_track pjt ON p.PlaylistId = pjt.PlaylistId
+--	JOIN music.tracks t ON pjt.TrackId = t.TrackId
+--	JOIN music.albums a ON t.AlbumId = a.AlbumId
+--	JOIN music.genres g ON g.GenreId = t.GenreId
+--	JOIN music.artists ar ON ar.ArtistId = a.ArtistId
+--	JOIN music.media_types m ON m.MediaTypeId = t.MediaTypeId
+--WHERE m.Name LIKE '%audio%';
