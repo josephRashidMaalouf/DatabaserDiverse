@@ -151,6 +151,7 @@ GO
 
 --1. Av alla audiospår, vilken artist har längst total speltid?
 
+ 
 --SELECT TOP 1
 --ar.Name AS [Artist],
 --SUM(t.Milliseconds) AS [Total Length]
@@ -160,49 +161,95 @@ GO
 --JOIN music.albums a ON t.AlbumId = a.AlbumId
 --JOIN music.genres g ON g.GenreId = t.GenreId
 --JOIN music.artists ar ON ar.ArtistId = a.ArtistId
+--JOIN music.media_types m ON m.MediaTypeId = t.MediaTypeId
+--WHERE m.Name LIKE '%audio%'
 --GROUP BY ar.Name
 --ORDER BY [Total Length] DESC;
 
-----## SVAR: Lost har längst speltid med sina 476557164 millisekunder
+----## SVAR: Iron Maiden har längst speltid med sina 172915816 millisekunder
 ----## Förklaring:
 --Jag återanvände Queryn från föruppgiften, men gjorde om den.
 --Eftersom uppgiften ville undersöka alla audiospår, tog jag bort variabeln.
+--Jag la även till en join på media types för att kunna sortera fram ljudfiler
 --För att underlätta uträkningen tog jag även bort omvandlingen från millisekunder till mm:ss.
 
 
 
---2. Vad är den genomsnittliga speltiden på den artistens låtar?
-SELECT
-ar.Name AS [Artist],
-t.Milliseconds AS [Total Length],
-t.Name AS [TRACK]
-FROM music.playlists p
-JOIN music.playlist_track pjt ON p.PlaylistId = pjt.PlaylistId
-JOIN music.tracks t ON pjt.TrackId = t.TrackId
-JOIN music.albums a ON t.AlbumId = a.AlbumId
-JOIN music.genres g ON g.GenreId = t.GenreId
-JOIN music.artists ar ON ar.ArtistId = a.ArtistId
-WHERE ar.Name = 'Lost';
+----2. Vad är den genomsnittliga speltiden på den artistens låtar?
+----SELECT
+----ar.Name AS [Artist],
+----t.Milliseconds [Total Length] ,
+----t.Name AS [TRACK]
+----FROM music.playlists p
+----JOIN music.playlist_track pjt ON p.PlaylistId = pjt.PlaylistId
+----JOIN music.tracks t ON pjt.TrackId = t.TrackId
+----JOIN music.albums a ON t.AlbumId = a.AlbumId
+----JOIN music.genres g ON g.GenreId = t.GenreId
+----JOIN music.artists ar ON ar.ArtistId = a.ArtistId
+----WHERE ar.Name = 'Iron Maiden';
 
-SELECT
-ar.Name AS [Artist],
- COUNT(t.Name) AS [No of tracks],
-SUM(t.Milliseconds) AS [Total length],
-CONVERT(FLOAT, SUM(t.Milliseconds) / 1000.0 / COUNT(t.Name)) AS [Avarage]
-FROM music.playlists p
-JOIN music.playlist_track pjt ON p.PlaylistId = pjt.PlaylistId
-JOIN music.tracks t ON pjt.TrackId = t.TrackId
-JOIN music.albums a ON t.AlbumId = a.AlbumId
-JOIN music.genres g ON g.GenreId = t.GenreId
-JOIN music.artists ar ON ar.ArtistId = a.ArtistId
-WHERE ar.Name = 'Lost'
-GROUP BY ar.Name;
+--SELECT
+--ar.Name AS [Artist],
+-- COUNT(t.Name) AS [No of tracks],
+--SUM(t.Milliseconds) AS [Total length],
+--FORMAT(DATEADD(SECOND, CONVERT(FLOAT, SUM(t.Milliseconds) / COUNT(t.Name)) / 1000, 0), 'mm:ss') AS [Avarage]
+--FROM music.playlists p
+--JOIN music.playlist_track pjt ON p.PlaylistId = pjt.PlaylistId
+--JOIN music.tracks t ON pjt.TrackId = t.TrackId
+--JOIN music.albums a ON t.AlbumId = a.AlbumId
+--JOIN music.genres g ON g.GenreId = t.GenreId
+--JOIN music.artists ar ON ar.ArtistId = a.ArtistId
+--WHERE ar.Name = 'Iron Maiden'
+--GROUP BY ar.Name;
+
+--## SVAR: Jag fick den genomsnittliga tiden på Iron Maidens låtar till 05:35. 
 
 
 --3. Vad är den sammanlagda filstorleken för all video?
 
+--SELECT SUM(ROUND(CONVERT(FLOAT, t.Bytes / (1024 * 1024.0)), 1)) AS [Total size video (MiB)]
+--FROM music.playlists p
+--JOIN music.playlist_track pjt ON p.PlaylistId = pjt.PlaylistId
+--JOIN music.tracks t ON pjt.TrackId = t.TrackId
+--JOIN music.albums a ON t.AlbumId = a.AlbumId
+--JOIN music.genres g ON g.GenreId = t.GenreId
+--JOIN music.artists ar ON ar.ArtistId = a.ArtistId
+--JOIN music.media_types m ON m.MediaTypeId = t.MediaTypeId
+--WHERE m.Name LIKE '%video%';
 
---4. Vilket är det högsta antal artister som finns på en enskild spellista?5. Vilket är det genomsnittliga antalet artister per spellista?
+-- ## Svar: 171691,1 MiB
 
 
+--4. Vilket är det högsta antal artister som finns på en enskild spellista?
 
+--SELECT 
+--	p.Name AS [Playlist],
+--	COUNT(ar.Name)  AS [No of Artists]
+--FROM music.playlists p
+--	JOIN music.playlist_track pjt ON p.PlaylistId = pjt.PlaylistId
+--	JOIN music.tracks t ON pjt.TrackId = t.TrackId
+--	JOIN music.albums a ON t.AlbumId = a.AlbumId
+--	JOIN music.genres g ON g.GenreId = t.GenreId
+--	JOIN music.artists ar ON ar.ArtistId = a.ArtistId
+--	JOIN music.media_types m ON m.MediaTypeId = t.MediaTypeId
+--WHERE m.Name LIKE '%audio%'
+--GROUP BY p.Name
+--ORDER BY [No of Artists] DESC;
+
+----## SVAR: Spellistan Music har flest artister: 6578 st.
+
+--5. Vilket är det genomsnittliga antalet artister per spellista?
+
+SELECT 
+	p.Name AS [Playlist],
+	COUNT(ar.Name)  AS [No of Artists]
+FROM music.playlists p
+	JOIN music.playlist_track pjt ON p.PlaylistId = pjt.PlaylistId
+	JOIN music.tracks t ON pjt.TrackId = t.TrackId
+	JOIN music.albums a ON t.AlbumId = a.AlbumId
+	JOIN music.genres g ON g.GenreId = t.GenreId
+	JOIN music.artists ar ON ar.ArtistId = a.ArtistId
+	JOIN music.media_types m ON m.MediaTypeId = t.MediaTypeId
+WHERE m.Name LIKE '%audio%'
+GROUP BY p.Name
+ORDER BY [No of Artists] DESC;
