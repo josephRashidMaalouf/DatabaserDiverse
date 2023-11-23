@@ -125,28 +125,84 @@ GO
 --########## DEL 2 ##########
 
 
---declare @playlist varchar(max) = 'Heavy Metal Classic';
+
+
+--## Föruppgift
+
+--declare @playlist varchar(max) = 'Heavy Metal Classic'; -- Här skriver jag spellistan jag vill ha fram i selecten
+--SELECT 
+--g.Name AS [Genre],
+--ar.Name AS [Artist],
+--a.Title AS [Album],
+--t.Name AS [Track],
+--FORMAT(DATEADD(SECOND, t.Milliseconds / 1000, 0), 'mm:ss') AS [Length], -- Med DATEADD konverterar jag millisekunder till sekunder, och formaterar det därefter till mm:ss med FORMAT
+--CONVERT(NVARCHAR(10), ROUND(CONVERT(FLOAT, t.Bytes / (1024 * 1024.0)), 1)) + ' ' + 'MiB' AS [Size], -- en MiB består av (1024 * 1024) bytes. För att göra denna beräkning konverterar jag först till FLOAT, därefter rundar jag av till en decimal och gör om till en NVARCHAR för att sätta MiB som prefix
+--t.Composer AS [Composer]
+--FROM music.playlists p
+--JOIN music.playlist_track pjt ON p.PlaylistId = pjt.PlaylistId
+--JOIN music.tracks t ON pjt.TrackId = t.TrackId
+--JOIN music.albums a ON t.AlbumId = a.AlbumId
+--JOIN music.genres g ON g.GenreId = t.GenreId
+--JOIN music.artists ar ON ar.ArtistId = a.ArtistId
+--WHERE P.Name = @playlist; -- refererar till variabeln som deklarerades i första raden
 --GO
 
-CREATE OR ALTER VIEW [Music]
-AS
-SELECT 
-g.Name AS [Genre],
+--SELECT name FROM music.playlists;
+
+--1. Av alla audiospår, vilken artist har längst total speltid?
+
+--SELECT TOP 1
+--ar.Name AS [Artist],
+--SUM(t.Milliseconds) AS [Total Length]
+--FROM music.playlists p
+--JOIN music.playlist_track pjt ON p.PlaylistId = pjt.PlaylistId
+--JOIN music.tracks t ON pjt.TrackId = t.TrackId
+--JOIN music.albums a ON t.AlbumId = a.AlbumId
+--JOIN music.genres g ON g.GenreId = t.GenreId
+--JOIN music.artists ar ON ar.ArtistId = a.ArtistId
+--GROUP BY ar.Name
+--ORDER BY [Total Length] DESC;
+
+----## SVAR: Lost har längst speltid med sina 476557164 millisekunder
+----## Förklaring:
+--Jag återanvände Queryn från föruppgiften, men gjorde om den.
+--Eftersom uppgiften ville undersöka alla audiospår, tog jag bort variabeln.
+--För att underlätta uträkningen tog jag även bort omvandlingen från millisekunder till mm:ss.
+
+
+
+--2. Vad är den genomsnittliga speltiden på den artistens låtar?
+SELECT
 ar.Name AS [Artist],
-a.Title AS [Album],
-t.Name AS [Track],
-FORMAT(DATEADD(SECOND, t.Milliseconds / 1000, 0), 'mm:ss') AS [Length],
-CONVERT(NVARCHAR(10), ROUND(CONVERT(FLOAT, t.Bytes / (1024 * 1024.0)), 1)) + ' ' + 'MiB' AS [Size],
-t.Composer AS [Composer]
+t.Milliseconds AS [Total Length],
+t.Name AS [TRACK]
 FROM music.playlists p
 JOIN music.playlist_track pjt ON p.PlaylistId = pjt.PlaylistId
 JOIN music.tracks t ON pjt.TrackId = t.TrackId
 JOIN music.albums a ON t.AlbumId = a.AlbumId
 JOIN music.genres g ON g.GenreId = t.GenreId
-JOIN music.artists ar ON ar.ArtistId = a.ArtistId;
-GO
+JOIN music.artists ar ON ar.ArtistId = a.ArtistId
+WHERE ar.Name = 'Lost';
+
+SELECT
+ar.Name AS [Artist],
+ COUNT(t.Name) AS [No of tracks],
+SUM(t.Milliseconds) AS [Total length],
+CONVERT(FLOAT, SUM(t.Milliseconds) / 1000.0 / COUNT(t.Name)) AS [Avarage]
+FROM music.playlists p
+JOIN music.playlist_track pjt ON p.PlaylistId = pjt.PlaylistId
+JOIN music.tracks t ON pjt.TrackId = t.TrackId
+JOIN music.albums a ON t.AlbumId = a.AlbumId
+JOIN music.genres g ON g.GenreId = t.GenreId
+JOIN music.artists ar ON ar.ArtistId = a.ArtistId
+WHERE ar.Name = 'Lost'
+GROUP BY ar.Name;
 
 
+--3. Vad är den sammanlagda filstorleken för all video?
+
+
+--4. Vilket är det högsta antal artister som finns på en enskild spellista?5. Vilket är det genomsnittliga antalet artister per spellista?
 
 
 
