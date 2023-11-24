@@ -1,7 +1,7 @@
 --CREATE DATABASE Labb1_Bokhandel2;
 
 USE Labb1_Bokhandel2;
-
+GO;
 ----###Create tables###---
 
 --CREATE TABLE Authors
@@ -314,3 +314,54 @@ USE Labb1_Bokhandel2;
 --JOIN Genres ON Genres.Id = Books.GenreId
 --GROUP BY [First Name] + ' ' + [Last Name], Genres.[Name];
 
+--- ### Create stored procedure ### ---
+
+CREATE OR ALTER PROCEDURE [FlyttaBok]
+@MoveFromStoreId INT NOT NULL,
+@MoveToStoreId INT NOT NULL,
+@BookIsbn NVARCHAR(13),
+@Quantity INT NOT NULL
+AS
+BEGIN
+	BEGIN TRY
+		BEGIN TRANSACTION
+			IF EXISTS (SELECT 1 FROM Stores WHERE [Id] = @MoveFromStoreId) AND EXISTS (SELECT 1 FROM Stores WHERE [Id] = @MoveToStoreId) -- Check if the store Ids exist
+			BEGIN
+				IF EXISTS (SELECT 1 FROM IventoryBalance WHERE StoreId = @MoveToStoreId AND [Isbn13] = @BookIsbn) -- Check if FromStore has the book
+				BEGIN
+					-- KOLLA OM BUTIK 1 HAR KVANTITETEN SOM ÖNSKAS FLYTTAS
+					-- OM ALLA BÖCKER ÖNSKAS FLYTTAS, DELETE BOKENS RAD, ANNARS SUBTRAHERA FRÅN QUANTITY
+					-- KOLLA OM BUTIK 2 HAR BOKEN, OM JA ÖKA KVANTITET, ANNARS LÄGG TILL BOK MED ÖNSKAD KVANTITET
+					COMMIT TRANSACTION;
+				END
+				ELSE
+				BEGIN
+					ROLLBACK TRANSACTION; -- Behövs detta ens?
+					PRINT 'Isbn does not match any isbn associated with the store id';
+				END
+				
+			END
+			ELSE
+			BEGIN
+				ROLLBACK TRANSACTION; -- Behövs detta ens?
+				PRINT 'Store IDs do not match any stores in the database';
+			END
+	END TRY
+	BEGIN CATCH
+		ROLLBACK TRANSACTION;
+		PRINT 'Something went wrong. Transfer cancelled';
+	END CATCH
+END;
+GO
+
+SELECT * FROM Customers;
+				
+IF EXISTS (SELECT [First Name] FROM Customers WHERE [First Name] = 'Joseh')  AND EXISTS (SELECT [First Name] FROM Customers WHERE [First Name] = 'Rania')
+PRINT 'Yup'
+ELSE
+PRINT 'Nope';
+
+IF EXISTS (SELECT [First Name] FROM Customers WHERE [First Name] = 'Joseph' AND [Last Name] = 'Rashid-Maalouf')  
+PRINT 'Yeeezz'
+ELSE
+PRINT 'Nope';
