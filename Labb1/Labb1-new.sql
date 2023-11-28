@@ -320,48 +320,49 @@ GO
 --@MoveFromStoreId INT,
 --@MoveToStoreId INT,
 --@BookIsbn NVARCHAR(13),
---@Quantity INT
+--@Quantity INT = 1
 --AS
 --BEGIN
 --	BEGIN TRY
 --		BEGIN TRANSACTION
 --			IF EXISTS (SELECT 1 FROM Stores WHERE [Id] = @MoveFromStoreId) AND EXISTS (SELECT 1 FROM Stores WHERE [Id] = @MoveToStoreId) -- Check if the store Ids exist
 --			BEGIN
---				IF EXISTS (SELECT 1 FROM IventoryBalance WHERE [StoreId] = @MoveToStoreId AND [Isbn13] = @BookIsbn) -- Check if FromStore has the book
+--				IF EXISTS (SELECT 1 FROM IventoryBalance WHERE [StoreId] = @MoveFromStoreId AND [Isbn13] = @BookIsbn) -- Check if FromStore has the book
 --				BEGIN
 --					IF (SELECT [Quantity] FROM IventoryBalance WHERE [Isbn13] = @BookIsbn AND [StoreId] = @MoveFromStoreId) >= @Quantity --Check if FromStore has the suffient amount of books to move
 --					BEGIN
 --						UPDATE IventoryBalance
 --							SET [Quantity] -= @Quantity
 --							WHERE [Isbn13] = @BookIsbn AND [StoreId] = @MoveFromStoreId
+--						IF EXISTS (SELECT 1 FROM IventoryBalance WHERE [Isbn13] = @BookIsbn AND [StoreId] = @MoveToStoreId) -- Check to see if ToStore already has the book in its inventory
+--						BEGIN
+--							UPDATE IventoryBalance -- If the book exists, increase inventory with desired amount
+--								SET [Quantity] += @Quantity
+--								WHERE [Isbn13] = @BookIsbn AND [StoreId] = @MoveToStoreId
+--						END
+--						ELSE 
+--						BEGIN
+--							INSERT INTO IventoryBalance VALUES (@MoveToStoreId, @BookIsbn, @Quantity) -- If the book does not exist, add it.
+--						END
 --					END
 --					ELSE
 --					BEGIN
---						ROLLBACK TRANSACTION; -- Behövs detta ens?
+--						ROLLBACK TRANSACTION; 
 --						PRINT 'There are not enough books to move';
+--						RETURN;
 --					END
---				IF EXISTS (SELECT 1 FROM IventoryBalance WHERE [Isbn13] = @BookIsbn AND [StoreId] = @MoveToStoreId) -- Check to see if ToStore already has the book in its inventory
---				BEGIN
---					UPDATE IventoryBalance -- If the book exists, increase inventory with desired amount
---							SET [Quantity] += @Quantity
---							WHERE [Isbn13] = @BookIsbn AND [StoreId] = @MoveToStoreId
---				END
---				ELSE 
---				BEGIN
---					INSERT INTO IventoryBalance VALUES (@MoveToStoreId, @BookIsbn, @Quantity) -- If the book does not exist, add it.
---				END
 --					COMMIT TRANSACTION; --If all goes well, commit.
+--					PRINT 'Transfer done';
 --				END
 --				ELSE
 --				BEGIN
---					ROLLBACK TRANSACTION; -- Behövs detta ens?
+--					ROLLBACK TRANSACTION; 
 --					PRINT 'Isbn does not match any isbn associated with the store id';
 --				END
-				
 --			END
 --			ELSE
 --			BEGIN
---				ROLLBACK TRANSACTION; -- Behövs detta ens?
+--				ROLLBACK TRANSACTION; 
 --				PRINT 'Store IDs do not match any stores in the database';
 --			END
 --	END TRY
@@ -373,33 +374,4 @@ GO
 --GO
 
 
-SELECT TOP (1000) [StoreId]
-      ,[Isbn13]
-      ,[Quantity]
-  FROM [Labb1_Bokhandel2].[dbo].[IventoryBalance];
-GO
 
---EXEC [FlyttaBok] @BookIsbn = '9789129688313', @MoveFromStoreId = 1, @MoveToStoreId = 3, @Quantity = 20;
-
---@MoveFromStoreId INT,
---@MoveToStoreId INT,
---@BookIsbn NVARCHAR(13),
---@Quantity INT
-
---SELECT * FROM Customers;
-				
---IF EXISTS (SELECT [First Name] FROM Customers WHERE [First Name] = 'Joseh')  AND EXISTS (SELECT [First Name] FROM Customers WHERE [First Name] = 'Rania')
---PRINT 'Yup'
---ELSE
---PRINT 'Nope';
-
---IF (SELECT [Quantity] FROM IventoryBalance WHERE Isbn13 = 9789144135991 AND StoreId = 1) = 34
---PRINT 'Yeeezz'
---ELSE
---PRINT 'Nope';
-
-
---IF EXISTS (SELECT [Quantity] FROM IventoryBalance WHERE Isbn13 = 9789144135991 AND StoreId = 2)
---PRINT 'Yeeezz'
---ELSE
---PRINT 'Nope';
