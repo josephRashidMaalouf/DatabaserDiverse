@@ -25,14 +25,16 @@ GO
 --”City”,
 --samt ”Customers” som anger hur många kunder som finns i staden.
 
-SELECT * FROM company.customers;
+--SELECT 
+--	[Region],
+--	[Country],
+--	[City],
+--	COUNT([CompanyName]) AS [Customers]
+--FROM company.customers
+--GROUP BY [City], [Region], [Country]
+--HAVING COUNT([CompanyName]) >= 2;
 
-SELECT [City], COUNT([CompanyName]) AS [Number of customers]
-FROM company.customers
-GROUP BY [City]
-HAVING COUNT([CompanyName]) >= 2;
-
-
+--###########################
 
 
 --3. Skapa en varchar-variabel och skriv en select-sats som sätter värdet: 
