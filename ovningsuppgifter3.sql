@@ -45,93 +45,132 @@ GO
 --Tips: Ange ’sv’ som tredje parameter i format() för svenska månader.
 
 
---SELECT 
---	[Season],
---	FORMAT(MIN([Original air date]), 'MMMM', 'sv') AS [Start date],
---	FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv') AS [End date],
---	COUNT([Episode]) AS [Episodes], 
---	SUM([U.S. viewers(millions)]) AS [million viewers in U.S]
---FROM GameOfThrones
---GROUP BY [Season];
+
+SELECT 
+	[Season],
+	FORMAT(MIN([Original air date]), 'MMMM', 'sv') AS [Start date],
+	FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv') AS [End date],
+	COUNT([Episode]) AS [Episodes], 
+	SUM([U.S. viewers(millions)]) AS [million viewers in U.S]
+FROM GameOfThrones
+GROUP BY [Season];
 
 
---DECLARE @EpiInfo AS NVARCHAR(max) = 
---(SELECT 'Säsong ' +
---	CONVERT(NVARCHAR(MAX),[Season]) + ' sändes från ' +
---	CONVERT(NVARCHAR(MAX), FORMAT(MIN([Original air date]), 'MMMM', 'sv')) + ' till ' +
---	CONVERT(NVARCHAR(MAX), FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv')) + '. Totalt sändes ' + 
---	CONVERT(NVARCHAR(MAX), COUNT([Episode])) + ' avsnitt, som i genomsnitt sågs av ' + 
---	CONVERT(NVARCHAR(MAX), SUM([U.S. viewers(millions)])) + ' miljoner människor i USA.' 
---FROM GameOfThrones
---GROUP BY [Season]
---HAVING [Season] = 1) + char(13) + 
---(SELECT 'Säsong ' +
---	CONVERT(NVARCHAR(MAX),[Season]) + ' sändes från ' +
---	CONVERT(NVARCHAR(MAX), FORMAT(MIN([Original air date]), 'MMMM', 'sv')) + ' till ' +
---	CONVERT(NVARCHAR(MAX), FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv')) + '. Totalt sändes ' + 
---	CONVERT(NVARCHAR(MAX), COUNT([Episode])) + ' avsnitt, som i genomsnitt sågs av ' + 
---	CONVERT(NVARCHAR(MAX), SUM([U.S. viewers(millions)])) + ' miljoner människor i USA.' 
---FROM GameOfThrones
---GROUP BY [Season]
---HAVING [Season] = 2) + char(13) +
---(SELECT 'Säsong ' +
---	CONVERT(NVARCHAR(MAX),[Season]) + ' sändes från ' +
---	CONVERT(NVARCHAR(MAX), FORMAT(MIN([Original air date]), 'MMMM', 'sv')) + ' till ' +
---	CONVERT(NVARCHAR(MAX), FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv')) + '. Totalt sändes ' + 
---	CONVERT(NVARCHAR(MAX), COUNT([Episode])) + ' avsnitt, som i genomsnitt sågs av ' + 
---	CONVERT(NVARCHAR(MAX), SUM([U.S. viewers(millions)])) + ' miljoner människor i USA.' 
---FROM GameOfThrones
---GROUP BY [Season]
---HAVING [Season] = 3) + char(13) + 
---(SELECT 'Säsong ' +
---	CONVERT(NVARCHAR(MAX),[Season]) + ' sändes från ' +
---	CONVERT(NVARCHAR(MAX), FORMAT(MIN([Original air date]), 'MMMM', 'sv')) + ' till ' +
---	CONVERT(NVARCHAR(MAX), FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv')) + '. Totalt sändes ' + 
---	CONVERT(NVARCHAR(MAX), COUNT([Episode])) + ' avsnitt, som i genomsnitt sågs av ' + 
---	CONVERT(NVARCHAR(MAX), SUM([U.S. viewers(millions)])) + ' miljoner människor i USA.' 
---FROM GameOfThrones
---GROUP BY [Season]
---HAVING [Season] = 4) + char(13) + 
---(SELECT 'Säsong ' +
---	CONVERT(NVARCHAR(MAX),[Season]) + ' sändes från ' +
---	CONVERT(NVARCHAR(MAX), FORMAT(MIN([Original air date]), 'MMMM', 'sv')) + ' till ' +
---	CONVERT(NVARCHAR(MAX), FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv')) + '. Totalt sändes ' + 
---	CONVERT(NVARCHAR(MAX), COUNT([Episode])) + ' avsnitt, som i genomsnitt sågs av ' + 
---	CONVERT(NVARCHAR(MAX), SUM([U.S. viewers(millions)])) + ' miljoner människor i USA.' 
---FROM GameOfThrones
---GROUP BY [Season]
---HAVING [Season] = 5) + char(13) + 
---(SELECT 'Säsong ' +
---	CONVERT(NVARCHAR(MAX),[Season]) + ' sändes från ' +
---	CONVERT(NVARCHAR(MAX), FORMAT(MIN([Original air date]), 'MMMM', 'sv')) + ' till ' +
---	CONVERT(NVARCHAR(MAX), FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv')) + '. Totalt sändes ' + 
---	CONVERT(NVARCHAR(MAX), COUNT([Episode])) + ' avsnitt, som i genomsnitt sågs av ' + 
---	CONVERT(NVARCHAR(MAX), SUM([U.S. viewers(millions)])) + ' miljoner människor i USA.' 
---FROM GameOfThrones
---GROUP BY [Season]
---HAVING [Season] = 6) + char(13) + 
---(SELECT 'Säsong ' +
---	CONVERT(NVARCHAR(MAX),[Season]) + ' sändes från ' +
---	CONVERT(NVARCHAR(MAX), FORMAT(MIN([Original air date]), 'MMMM', 'sv')) + ' till ' +
---	CONVERT(NVARCHAR(MAX), FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv')) + '. Totalt sändes ' + 
---	CONVERT(NVARCHAR(MAX), COUNT([Episode])) + ' avsnitt, som i genomsnitt sågs av ' + 
---	CONVERT(NVARCHAR(MAX), SUM([U.S. viewers(millions)])) + ' miljoner människor i USA.' 
---FROM GameOfThrones
---GROUP BY [Season]
---HAVING [Season] = 7) + char(13) + 
---(SELECT 'Säsong ' +
---	CONVERT(NVARCHAR(MAX),[Season]) + ' sändes från ' +
---	CONVERT(NVARCHAR(MAX), FORMAT(MIN([Original air date]), 'MMMM', 'sv')) + ' till ' +
---	CONVERT(NVARCHAR(MAX), FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv')) + '. Totalt sändes ' + 
---	CONVERT(NVARCHAR(MAX), COUNT([Episode])) + ' avsnitt, som i genomsnitt sågs av ' + 
---	CONVERT(NVARCHAR(MAX), SUM([U.S. viewers(millions)])) + ' miljoner människor i USA.' 
---FROM GameOfThrones
---GROUP BY [Season]
---HAVING [Season] = 8) + char(13);
+DECLARE @EpiInfo AS NVARCHAR(max) = 
+(SELECT 'Säsong ' +
+	CONVERT(NVARCHAR(MAX),[Season]) + ' sändes från ' +
+	CONVERT(NVARCHAR(MAX), FORMAT(MIN([Original air date]), 'MMMM', 'sv')) + ' till ' +
+	CONVERT(NVARCHAR(MAX), FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv')) + '. Totalt sändes ' + 
+	CONVERT(NVARCHAR(MAX), COUNT([Episode])) + ' avsnitt, som i genomsnitt sågs av ' + 
+	CONVERT(NVARCHAR(MAX), SUM([U.S. viewers(millions)])) + ' miljoner människor i USA.' 
+FROM GameOfThrones
+GROUP BY [Season]
+HAVING [Season] = 1) + char(13) + 
+(SELECT 'Säsong ' +
+	CONVERT(NVARCHAR(MAX),[Season]) + ' sändes från ' +
+	CONVERT(NVARCHAR(MAX), FORMAT(MIN([Original air date]), 'MMMM', 'sv')) + ' till ' +
+	CONVERT(NVARCHAR(MAX), FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv')) + '. Totalt sändes ' + 
+	CONVERT(NVARCHAR(MAX), COUNT([Episode])) + ' avsnitt, som i genomsnitt sågs av ' + 
+	CONVERT(NVARCHAR(MAX), SUM([U.S. viewers(millions)])) + ' miljoner människor i USA.' 
+FROM GameOfThrones
+GROUP BY [Season]
+HAVING [Season] = 2) + char(13) +
+(SELECT 'Säsong ' +
+	CONVERT(NVARCHAR(MAX),[Season]) + ' sändes från ' +
+	CONVERT(NVARCHAR(MAX), FORMAT(MIN([Original air date]), 'MMMM', 'sv')) + ' till ' +
+	CONVERT(NVARCHAR(MAX), FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv')) + '. Totalt sändes ' + 
+	CONVERT(NVARCHAR(MAX), COUNT([Episode])) + ' avsnitt, som i genomsnitt sågs av ' + 
+	CONVERT(NVARCHAR(MAX), SUM([U.S. viewers(millions)])) + ' miljoner människor i USA.' 
+FROM GameOfThrones
+GROUP BY [Season]
+HAVING [Season] = 3) + char(13) + 
+(SELECT 'Säsong ' +
+	CONVERT(NVARCHAR(MAX),[Season]) + ' sändes från ' +
+	CONVERT(NVARCHAR(MAX), FORMAT(MIN([Original air date]), 'MMMM', 'sv')) + ' till ' +
+	CONVERT(NVARCHAR(MAX), FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv')) + '. Totalt sändes ' + 
+	CONVERT(NVARCHAR(MAX), COUNT([Episode])) + ' avsnitt, som i genomsnitt sågs av ' + 
+	CONVERT(NVARCHAR(MAX), SUM([U.S. viewers(millions)])) + ' miljoner människor i USA.' 
+FROM GameOfThrones
+GROUP BY [Season]
+HAVING [Season] = 4) + char(13) + 
+(SELECT 'Säsong ' +
+	CONVERT(NVARCHAR(MAX),[Season]) + ' sändes från ' +
+	CONVERT(NVARCHAR(MAX), FORMAT(MIN([Original air date]), 'MMMM', 'sv')) + ' till ' +
+	CONVERT(NVARCHAR(MAX), FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv')) + '. Totalt sändes ' + 
+	CONVERT(NVARCHAR(MAX), COUNT([Episode])) + ' avsnitt, som i genomsnitt sågs av ' + 
+	CONVERT(NVARCHAR(MAX), SUM([U.S. viewers(millions)])) + ' miljoner människor i USA.' 
+FROM GameOfThrones
+GROUP BY [Season]
+HAVING [Season] = 5) + char(13) + 
+(SELECT 'Säsong ' +
+	CONVERT(NVARCHAR(MAX),[Season]) + ' sändes från ' +
+	CONVERT(NVARCHAR(MAX), FORMAT(MIN([Original air date]), 'MMMM', 'sv')) + ' till ' +
+	CONVERT(NVARCHAR(MAX), FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv')) + '. Totalt sändes ' + 
+	CONVERT(NVARCHAR(MAX), COUNT([Episode])) + ' avsnitt, som i genomsnitt sågs av ' + 
+	CONVERT(NVARCHAR(MAX), SUM([U.S. viewers(millions)])) + ' miljoner människor i USA.' 
+FROM GameOfThrones
+GROUP BY [Season]
+HAVING [Season] = 6) + char(13) + 
+(SELECT 'Säsong ' +
+	CONVERT(NVARCHAR(MAX),[Season]) + ' sändes från ' +
+	CONVERT(NVARCHAR(MAX), FORMAT(MIN([Original air date]), 'MMMM', 'sv')) + ' till ' +
+	CONVERT(NVARCHAR(MAX), FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv')) + '. Totalt sändes ' + 
+	CONVERT(NVARCHAR(MAX), COUNT([Episode])) + ' avsnitt, som i genomsnitt sågs av ' + 
+	CONVERT(NVARCHAR(MAX), SUM([U.S. viewers(millions)])) + ' miljoner människor i USA.' 
+FROM GameOfThrones
+GROUP BY [Season]
+HAVING [Season] = 7) + char(13) + 
+(SELECT 'Säsong ' +
+	CONVERT(NVARCHAR(MAX),[Season]) + ' sändes från ' +
+	CONVERT(NVARCHAR(MAX), FORMAT(MIN([Original air date]), 'MMMM', 'sv')) + ' till ' +
+	CONVERT(NVARCHAR(MAX), FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv')) + '. Totalt sändes ' + 
+	CONVERT(NVARCHAR(MAX), COUNT([Episode])) + ' avsnitt, som i genomsnitt sågs av ' + 
+	CONVERT(NVARCHAR(MAX), SUM([U.S. viewers(millions)])) + ' miljoner människor i USA.' 
+FROM GameOfThrones
+GROUP BY [Season]
+HAVING [Season] = 8) + char(13);
 
---PRINT @EpiInfo;
+PRINT @EpiInfo;
+
+
+
+
+
+
 
 -- Är det så uppgiften ska lösas?
+
+-- Nej, chatgpt visade en mycket bättre lösning:
+DECLARE @meddelande VARCHAR(MAX);
+
+SELECT @meddelande = COALESCE(@meddelande + CHAR(13), '') +
+    'Säsong ' + CAST(Season AS NVARCHAR(10)) + ' sändes från ' +
+    FORMAT(MIN([Original air date]), 'MMMM', 'sv') + ' till ' +
+    FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv') + '. ' +
+    'Totalt sändes ' + CAST(COUNT([Episode]) AS NVARCHAR(10)) + ' avsnitt, ' +
+    'som i genomsnitt sågs av ' + CAST(SUM([U.S. viewers(millions)]) AS NVARCHAR(20)) +
+    ' miljoner människor i USA.'
+FROM GameOfThrones
+GROUP BY [Season]; 
+
+PRINT @meddelande;
+
+----- Gjorde min egen version:
+DECLARE @EpiInfo2 AS NVARCHAR(max);
+
+SELECT @EpiInfo2 = COALESCE(@EpiInfo2 + CHAR(13), '') + -- COALESCE Gör att vi kan fortsätta bygga på strängen.
+	'Säsong ' +
+	CONVERT(NVARCHAR(MAX),[Season]) + ' sändes från ' +
+	CONVERT(NVARCHAR(MAX), FORMAT(MIN([Original air date]), 'MMMM', 'sv')) + ' till ' +
+	CONVERT(NVARCHAR(MAX), FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv')) + '. Totalt sändes ' + 
+	CONVERT(NVARCHAR(MAX), COUNT([Episode])) + ' avsnitt, som i genomsnitt sågs av ' + 
+	CONVERT(NVARCHAR(MAX), SUM([U.S. viewers(millions)])) + ' miljoner människor i USA.' 
+FROM GameOfThrones
+GROUP BY [Season];
+
+PRINT @EpiInfo2;
+GO
+
 
 --####################################
 
