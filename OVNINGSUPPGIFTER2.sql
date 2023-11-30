@@ -260,3 +260,21 @@ GO
 
 --## SVAR: 47. Det borde egentligen bli 47,5 tror jag? för totala antalet var 475 som skulle divideras med 10 spellistor.
 --				Men orkar inte kolla det nu.
+
+---- --> Rätt svar: (Ger 17) OBS FEL!
+--SELECT COUNT(DISTINCT art.[Name]) / COUNT(DISTINCT pl.[Name]) AS [Avarage]
+--FROM music.tracks AS t
+--INNER JOIN music.playlist_track AS pt ON pt.TrackId = t.TrackId
+--INNER JOIN music.playlists AS pl on pl.PlaylistId = pt.PlaylistId
+--INNER JOIN music.albums AS a on a.AlbumId = t.AlbumId
+--INNER JOIN music.artists AS art ON art.ArtistId = a.ArtistId
+--INNER JOIN music.genres As gen ON gen.GenreId = t.GenreId
+
+--Här kommer rätt: Ger 14,57
+SELECT CAST(COUNT(DISTINCT art.[Name]) AS FLOAT) / CAST(COUNT(DISTINCT pl.[PlaylistId]) AS FLOAT) AS [Avarage]
+FROM music.tracks AS t
+INNER JOIN music.playlist_track AS pt ON pt.TrackId = t.TrackId
+INNER JOIN music.playlists AS pl on pl.PlaylistId = pt.PlaylistId
+INNER JOIN music.albums AS a on a.AlbumId = t.AlbumId
+INNER JOIN music.artists AS art ON art.ArtistId = a.ArtistId
+GO
