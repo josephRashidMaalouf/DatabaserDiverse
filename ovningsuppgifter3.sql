@@ -46,130 +46,125 @@ GO
 
 
 
-SELECT 
-	[Season],
-	FORMAT(MIN([Original air date]), 'MMMM', 'sv') AS [Start date],
-	FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv') AS [End date],
-	COUNT([Episode]) AS [Episodes], 
-	SUM([U.S. viewers(millions)]) AS [million viewers in U.S]
-FROM GameOfThrones
-GROUP BY [Season];
+--SELECT 
+--	[Season],
+--	FORMAT(MIN([Original air date]), 'MMMM', 'sv') AS [Start date],
+--	FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv') AS [End date],
+--	COUNT([Episode]) AS [Episodes], 
+--	SUM([U.S. viewers(millions)]) AS [million viewers in U.S]
+--FROM GameOfThrones
+--GROUP BY [Season];
 
 
-DECLARE @EpiInfo AS NVARCHAR(max) = 
-(SELECT 'Säsong ' +
-	CONVERT(NVARCHAR(MAX),[Season]) + ' sändes från ' +
-	CONVERT(NVARCHAR(MAX), FORMAT(MIN([Original air date]), 'MMMM', 'sv')) + ' till ' +
-	CONVERT(NVARCHAR(MAX), FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv')) + '. Totalt sändes ' + 
-	CONVERT(NVARCHAR(MAX), COUNT([Episode])) + ' avsnitt, som i genomsnitt sågs av ' + 
-	CONVERT(NVARCHAR(MAX), SUM([U.S. viewers(millions)])) + ' miljoner människor i USA.' 
-FROM GameOfThrones
-GROUP BY [Season]
-HAVING [Season] = 1) + char(13) + 
-(SELECT 'Säsong ' +
-	CONVERT(NVARCHAR(MAX),[Season]) + ' sändes från ' +
-	CONVERT(NVARCHAR(MAX), FORMAT(MIN([Original air date]), 'MMMM', 'sv')) + ' till ' +
-	CONVERT(NVARCHAR(MAX), FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv')) + '. Totalt sändes ' + 
-	CONVERT(NVARCHAR(MAX), COUNT([Episode])) + ' avsnitt, som i genomsnitt sågs av ' + 
-	CONVERT(NVARCHAR(MAX), SUM([U.S. viewers(millions)])) + ' miljoner människor i USA.' 
-FROM GameOfThrones
-GROUP BY [Season]
-HAVING [Season] = 2) + char(13) +
-(SELECT 'Säsong ' +
-	CONVERT(NVARCHAR(MAX),[Season]) + ' sändes från ' +
-	CONVERT(NVARCHAR(MAX), FORMAT(MIN([Original air date]), 'MMMM', 'sv')) + ' till ' +
-	CONVERT(NVARCHAR(MAX), FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv')) + '. Totalt sändes ' + 
-	CONVERT(NVARCHAR(MAX), COUNT([Episode])) + ' avsnitt, som i genomsnitt sågs av ' + 
-	CONVERT(NVARCHAR(MAX), SUM([U.S. viewers(millions)])) + ' miljoner människor i USA.' 
-FROM GameOfThrones
-GROUP BY [Season]
-HAVING [Season] = 3) + char(13) + 
-(SELECT 'Säsong ' +
-	CONVERT(NVARCHAR(MAX),[Season]) + ' sändes från ' +
-	CONVERT(NVARCHAR(MAX), FORMAT(MIN([Original air date]), 'MMMM', 'sv')) + ' till ' +
-	CONVERT(NVARCHAR(MAX), FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv')) + '. Totalt sändes ' + 
-	CONVERT(NVARCHAR(MAX), COUNT([Episode])) + ' avsnitt, som i genomsnitt sågs av ' + 
-	CONVERT(NVARCHAR(MAX), SUM([U.S. viewers(millions)])) + ' miljoner människor i USA.' 
-FROM GameOfThrones
-GROUP BY [Season]
-HAVING [Season] = 4) + char(13) + 
-(SELECT 'Säsong ' +
-	CONVERT(NVARCHAR(MAX),[Season]) + ' sändes från ' +
-	CONVERT(NVARCHAR(MAX), FORMAT(MIN([Original air date]), 'MMMM', 'sv')) + ' till ' +
-	CONVERT(NVARCHAR(MAX), FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv')) + '. Totalt sändes ' + 
-	CONVERT(NVARCHAR(MAX), COUNT([Episode])) + ' avsnitt, som i genomsnitt sågs av ' + 
-	CONVERT(NVARCHAR(MAX), SUM([U.S. viewers(millions)])) + ' miljoner människor i USA.' 
-FROM GameOfThrones
-GROUP BY [Season]
-HAVING [Season] = 5) + char(13) + 
-(SELECT 'Säsong ' +
-	CONVERT(NVARCHAR(MAX),[Season]) + ' sändes från ' +
-	CONVERT(NVARCHAR(MAX), FORMAT(MIN([Original air date]), 'MMMM', 'sv')) + ' till ' +
-	CONVERT(NVARCHAR(MAX), FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv')) + '. Totalt sändes ' + 
-	CONVERT(NVARCHAR(MAX), COUNT([Episode])) + ' avsnitt, som i genomsnitt sågs av ' + 
-	CONVERT(NVARCHAR(MAX), SUM([U.S. viewers(millions)])) + ' miljoner människor i USA.' 
-FROM GameOfThrones
-GROUP BY [Season]
-HAVING [Season] = 6) + char(13) + 
-(SELECT 'Säsong ' +
-	CONVERT(NVARCHAR(MAX),[Season]) + ' sändes från ' +
-	CONVERT(NVARCHAR(MAX), FORMAT(MIN([Original air date]), 'MMMM', 'sv')) + ' till ' +
-	CONVERT(NVARCHAR(MAX), FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv')) + '. Totalt sändes ' + 
-	CONVERT(NVARCHAR(MAX), COUNT([Episode])) + ' avsnitt, som i genomsnitt sågs av ' + 
-	CONVERT(NVARCHAR(MAX), SUM([U.S. viewers(millions)])) + ' miljoner människor i USA.' 
-FROM GameOfThrones
-GROUP BY [Season]
-HAVING [Season] = 7) + char(13) + 
-(SELECT 'Säsong ' +
-	CONVERT(NVARCHAR(MAX),[Season]) + ' sändes från ' +
-	CONVERT(NVARCHAR(MAX), FORMAT(MIN([Original air date]), 'MMMM', 'sv')) + ' till ' +
-	CONVERT(NVARCHAR(MAX), FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv')) + '. Totalt sändes ' + 
-	CONVERT(NVARCHAR(MAX), COUNT([Episode])) + ' avsnitt, som i genomsnitt sågs av ' + 
-	CONVERT(NVARCHAR(MAX), SUM([U.S. viewers(millions)])) + ' miljoner människor i USA.' 
-FROM GameOfThrones
-GROUP BY [Season]
-HAVING [Season] = 8) + char(13);
+--DECLARE @EpiInfo AS NVARCHAR(max) = 
+--(SELECT 'Säsong ' +
+--	CONVERT(NVARCHAR(MAX),[Season]) + ' sändes från ' +
+--	CONVERT(NVARCHAR(MAX), FORMAT(MIN([Original air date]), 'MMMM', 'sv')) + ' till ' +
+--	CONVERT(NVARCHAR(MAX), FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv')) + '. Totalt sändes ' + 
+--	CONVERT(NVARCHAR(MAX), COUNT([Episode])) + ' avsnitt, som i genomsnitt sågs av ' + 
+--	CONVERT(NVARCHAR(MAX), SUM([U.S. viewers(millions)])) + ' miljoner människor i USA.' 
+--FROM GameOfThrones
+--GROUP BY [Season]
+--HAVING [Season] = 1) + char(13) + 
+--(SELECT 'Säsong ' +
+--	CONVERT(NVARCHAR(MAX),[Season]) + ' sändes från ' +
+--	CONVERT(NVARCHAR(MAX), FORMAT(MIN([Original air date]), 'MMMM', 'sv')) + ' till ' +
+--	CONVERT(NVARCHAR(MAX), FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv')) + '. Totalt sändes ' + 
+--	CONVERT(NVARCHAR(MAX), COUNT([Episode])) + ' avsnitt, som i genomsnitt sågs av ' + 
+--	CONVERT(NVARCHAR(MAX), SUM([U.S. viewers(millions)])) + ' miljoner människor i USA.' 
+--FROM GameOfThrones
+--GROUP BY [Season]
+--HAVING [Season] = 2) + char(13) +
+--(SELECT 'Säsong ' +
+--	CONVERT(NVARCHAR(MAX),[Season]) + ' sändes från ' +
+--	CONVERT(NVARCHAR(MAX), FORMAT(MIN([Original air date]), 'MMMM', 'sv')) + ' till ' +
+--	CONVERT(NVARCHAR(MAX), FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv')) + '. Totalt sändes ' + 
+--	CONVERT(NVARCHAR(MAX), COUNT([Episode])) + ' avsnitt, som i genomsnitt sågs av ' + 
+--	CONVERT(NVARCHAR(MAX), SUM([U.S. viewers(millions)])) + ' miljoner människor i USA.' 
+--FROM GameOfThrones
+--GROUP BY [Season]
+--HAVING [Season] = 3) + char(13) + 
+--(SELECT 'Säsong ' +
+--	CONVERT(NVARCHAR(MAX),[Season]) + ' sändes från ' +
+--	CONVERT(NVARCHAR(MAX), FORMAT(MIN([Original air date]), 'MMMM', 'sv')) + ' till ' +
+--	CONVERT(NVARCHAR(MAX), FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv')) + '. Totalt sändes ' + 
+--	CONVERT(NVARCHAR(MAX), COUNT([Episode])) + ' avsnitt, som i genomsnitt sågs av ' + 
+--	CONVERT(NVARCHAR(MAX), SUM([U.S. viewers(millions)])) + ' miljoner människor i USA.' 
+--FROM GameOfThrones
+--GROUP BY [Season]
+--HAVING [Season] = 4) + char(13) + 
+--(SELECT 'Säsong ' +
+--	CONVERT(NVARCHAR(MAX),[Season]) + ' sändes från ' +
+--	CONVERT(NVARCHAR(MAX), FORMAT(MIN([Original air date]), 'MMMM', 'sv')) + ' till ' +
+--	CONVERT(NVARCHAR(MAX), FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv')) + '. Totalt sändes ' + 
+--	CONVERT(NVARCHAR(MAX), COUNT([Episode])) + ' avsnitt, som i genomsnitt sågs av ' + 
+--	CONVERT(NVARCHAR(MAX), SUM([U.S. viewers(millions)])) + ' miljoner människor i USA.' 
+--FROM GameOfThrones
+--GROUP BY [Season]
+--HAVING [Season] = 5) + char(13) + 
+--(SELECT 'Säsong ' +
+--	CONVERT(NVARCHAR(MAX),[Season]) + ' sändes från ' +
+--	CONVERT(NVARCHAR(MAX), FORMAT(MIN([Original air date]), 'MMMM', 'sv')) + ' till ' +
+--	CONVERT(NVARCHAR(MAX), FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv')) + '. Totalt sändes ' + 
+--	CONVERT(NVARCHAR(MAX), COUNT([Episode])) + ' avsnitt, som i genomsnitt sågs av ' + 
+--	CONVERT(NVARCHAR(MAX), SUM([U.S. viewers(millions)])) + ' miljoner människor i USA.' 
+--FROM GameOfThrones
+--GROUP BY [Season]
+--HAVING [Season] = 6) + char(13) + 
+--(SELECT 'Säsong ' +
+--	CONVERT(NVARCHAR(MAX),[Season]) + ' sändes från ' +
+--	CONVERT(NVARCHAR(MAX), FORMAT(MIN([Original air date]), 'MMMM', 'sv')) + ' till ' +
+--	CONVERT(NVARCHAR(MAX), FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv')) + '. Totalt sändes ' + 
+--	CONVERT(NVARCHAR(MAX), COUNT([Episode])) + ' avsnitt, som i genomsnitt sågs av ' + 
+--	CONVERT(NVARCHAR(MAX), SUM([U.S. viewers(millions)])) + ' miljoner människor i USA.' 
+--FROM GameOfThrones
+--GROUP BY [Season]
+--HAVING [Season] = 7) + char(13) + 
+--(SELECT 'Säsong ' +
+--	CONVERT(NVARCHAR(MAX),[Season]) + ' sändes från ' +
+--	CONVERT(NVARCHAR(MAX), FORMAT(MIN([Original air date]), 'MMMM', 'sv')) + ' till ' +
+--	CONVERT(NVARCHAR(MAX), FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv')) + '. Totalt sändes ' + 
+--	CONVERT(NVARCHAR(MAX), COUNT([Episode])) + ' avsnitt, som i genomsnitt sågs av ' + 
+--	CONVERT(NVARCHAR(MAX), SUM([U.S. viewers(millions)])) + ' miljoner människor i USA.' 
+--FROM GameOfThrones
+--GROUP BY [Season]
+--HAVING [Season] = 8) + char(13);
 
-PRINT @EpiInfo;
-
-
-
-
-
+--PRINT @EpiInfo;
 
 
 -- Är det så uppgiften ska lösas?
 
 -- Nej, chatgpt visade en mycket bättre lösning:
-DECLARE @meddelande VARCHAR(MAX);
+--DECLARE @meddelande VARCHAR(MAX);
 
-SELECT @meddelande = COALESCE(@meddelande + CHAR(13), '') +
-    'Säsong ' + CAST(Season AS NVARCHAR(10)) + ' sändes från ' +
-    FORMAT(MIN([Original air date]), 'MMMM', 'sv') + ' till ' +
-    FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv') + '. ' +
-    'Totalt sändes ' + CAST(COUNT([Episode]) AS NVARCHAR(10)) + ' avsnitt, ' +
-    'som i genomsnitt sågs av ' + CAST(SUM([U.S. viewers(millions)]) AS NVARCHAR(20)) +
-    ' miljoner människor i USA.'
-FROM GameOfThrones
-GROUP BY [Season]; 
+--SELECT @meddelande = COALESCE(@meddelande + CHAR(13), '') +
+--    'Säsong ' + CAST(Season AS NVARCHAR(10)) + ' sändes från ' +
+--    FORMAT(MIN([Original air date]), 'MMMM', 'sv') + ' till ' +
+--    FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv') + '. ' +
+--    'Totalt sändes ' + CAST(COUNT([Episode]) AS NVARCHAR(10)) + ' avsnitt, ' +
+--    'som i genomsnitt sågs av ' + CAST(SUM([U.S. viewers(millions)]) AS NVARCHAR(20)) +
+--    ' miljoner människor i USA.'
+--FROM GameOfThrones
+--GROUP BY [Season]; 
 
-PRINT @meddelande;
+--PRINT @meddelande;
 
------ Gjorde min egen version:
-DECLARE @EpiInfo2 AS NVARCHAR(max);
+------- Gjorde min egen version:
+--DECLARE @EpiInfo2 AS NVARCHAR(max);
 
-SELECT @EpiInfo2 = COALESCE(@EpiInfo2 + CHAR(13), '') + -- COALESCE Gör att vi kan fortsätta bygga på strängen.
-	'Säsong ' +
-	CONVERT(NVARCHAR(MAX),[Season]) + ' sändes från ' +
-	CONVERT(NVARCHAR(MAX), FORMAT(MIN([Original air date]), 'MMMM', 'sv')) + ' till ' +
-	CONVERT(NVARCHAR(MAX), FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv')) + '. Totalt sändes ' + 
-	CONVERT(NVARCHAR(MAX), COUNT([Episode])) + ' avsnitt, som i genomsnitt sågs av ' + 
-	CONVERT(NVARCHAR(MAX), SUM([U.S. viewers(millions)])) + ' miljoner människor i USA.' 
-FROM GameOfThrones
-GROUP BY [Season];
+--SELECT @EpiInfo2 = COALESCE(@EpiInfo2 + CHAR(13), '') + -- COALESCE Gör att vi kan fortsätta bygga på strängen.
+--	'Säsong ' +
+--	CONVERT(NVARCHAR(MAX),[Season]) + ' sändes från ' +
+--	CONVERT(NVARCHAR(MAX), FORMAT(MIN([Original air date]), 'MMMM', 'sv')) + ' till ' +
+--	CONVERT(NVARCHAR(MAX), FORMAT(MAX([Original air date]), 'MMMM yyyy', 'sv')) + '. Totalt sändes ' + 
+--	CONVERT(NVARCHAR(MAX), COUNT([Episode])) + ' avsnitt, som i genomsnitt sågs av ' + 
+--	CONVERT(NVARCHAR(MAX), SUM([U.S. viewers(millions)])) + ' miljoner människor i USA.' 
+--FROM GameOfThrones
+--GROUP BY [Season];
 
-PRINT @EpiInfo2;
-GO
+--PRINT @EpiInfo2;
+--GO
 
 
 --####################################
@@ -181,10 +176,353 @@ GO
 --”Kön” som visar om det är en man eller kvinna.
 --Sortera raderna efter för- och efternamn.
 
+--SELECT 
+--	[FirstName] + ' ' + [LastName] AS [Name],
+--	DATEDIFF(YEAR, FORMAT(CAST('19' + SUBSTRING([ID], 1,6) AS INT), '####-##-##'), GETDATE()) AS [Age],
+--	CASE
+--		WHEN SUBSTRING([ID], 8 , 1) % 2 = 0 THEN 'Female'
+--		ELSE 'Male'
+--	END AS [Gender]
+--FROM Users
+--ORDER BY [FirstName] + ' ' + [LastName];
+--GO
+
 --5. Ta ut en lista över regioner i tabellen ”Countries” där det för varje region framgår regionens namn, 
 --antal länder i regionen, totalt antal invånare, 
 --total area, befolkningstätheten med 2 decimaler,
 --samt spädbarnsdödligheten per 100.000 födslar avrundat till heltal.
 
+--SELECT
+--	[Region],
+--	COUNT([Country]) AS [Countries],
+--	SUM(CAST([Population] AS BIGINT))  AS [Population],
+--	SUM([Area (sq# mi#)]) AS [Area],
+--	ROUND(SUM(CONVERT(FLOAT, [Population])) / SUM(CONVERT(FLOAT, [Area (sq# mi#)])), 2) AS [Pop# Density],
+--	ROUND(AVG(CAST(REPLACE([Infant mortality (per 1000 births)], ',', '.') AS FLOAT) * 100 ), 0) AS [Infant mortality per 100 000 births]
+--FROM
+--Countries
+--GROUP BY [Region];
+--GO
+
 --6. Från tabellen ”Airports”, gruppera per land och ta ut kolumner som visar: land, antal flygplatser (IATA-koder), 
 --antal som saknar ICAO-kod, samt hur många procent av flygplatserna i varje land som saknar ICAO-kod.
+
+-----> Denna löser jag inte. Niklas lösning nedan:
+
+--SELECT
+--    CASE
+--        WHEN CHARINDEX(',', [Location served]) > 0 THEN LTRIM(
+--            RTRIM(
+--                REPLACE(
+--                    REPLACE(
+--                        REPLACE(
+--                            REPLACE(
+--                                REPLACE(
+--                                    REPLACE(
+--                                        REPLACE(
+--                                            REPLACE(
+--                                                REPLACE(
+--                                                    REPLACE(
+--                                                        REPLACE(
+--                                                            REVERSE(
+--                                                                LEFT(
+--                                                                    REVERSE([Location served]),
+--                                                                    CHARINDEX(',', REVERSE([Location served])) -2
+--                                                                )
+--                                                            ),
+--                                                            CHAR(10),
+--                                                            ' '
+--                                                        ),
+--                                                        CHAR(11),
+--                                                        ' '
+--                                                    ),
+--                                                    CHAR(12),
+--                                                    ' '
+--                                                ),
+--                                                CHAR(13),
+--                                                ' '
+--                                            ),
+--                                            CHAR(14),
+--                                            ' '
+--                                        ),
+--                                        CHAR(160),
+--                                        ' '
+--                                    ),
+--                                    CHAR(13) + CHAR(10),
+--                                    ' '
+--                                ),
+--                                CHAR(9),
+--                                ' '
+--                            ),
+--                            ' ',
+--                            CHAR(17) + CHAR(18)
+--                        ),
+--                        CHAR(18) + CHAR(17),
+--                        ''
+--                    ),
+--                    CHAR(17) + CHAR(18),
+--                    ' '
+--                )
+--            )
+--        )
+--        WHEN CHARINDEX(';', [Location served]) > 0 THEN LTRIM(
+--            RTRIM(
+--                REPLACE(
+--                    REPLACE(
+--                        REPLACE(
+--                            REPLACE(
+--                                REPLACE(
+--                                    REPLACE(
+--                                        REPLACE(
+--                                            REPLACE(
+--                                                REPLACE(
+--                                                    REPLACE(
+--                                                        REPLACE(
+--                                                            REVERSE(
+--                                                                LEFT(
+--                                                                    REVERSE([Location served]),
+--                                                                    CHARINDEX(';', REVERSE([Location served])) -2
+--                                                                )
+--                                                            ),
+--                                                            CHAR(10),
+--                                                            ' '
+--                                                        ),
+--                                                        CHAR(11),
+--                                                        ' '
+--                                                    ),
+--                                                    CHAR(12),
+--                                                    ' '
+--                                                ),
+--                                                CHAR(13),
+--                                                ' '
+--                                            ),
+--                                            CHAR(14),
+--                                            ' '
+--                                        ),
+--                                        CHAR(160),
+--                                        ' '
+--                                    ),
+--                                    CHAR(13) + CHAR(10),
+--                                    ' '
+--                                ),
+--                                CHAR(9),
+--                                ' '
+--                            ),
+--                            ' ',
+--                            CHAR(17) + CHAR(18)
+--                        ),
+--                        CHAR(18) + CHAR(17),
+--                        ''
+--                    ),
+--                    CHAR(17) + CHAR(18),
+--                    ' '
+--                )
+--            )
+--        )
+--        ELSE LTRIM(
+--            RTRIM(
+--                REPLACE(
+--                    REPLACE(
+--                        REPLACE(
+--                            REPLACE(
+--                                REPLACE(
+--                                    REPLACE(
+--                                        REPLACE(
+--                                            REPLACE(
+--                                                REPLACE(
+--                                                    REPLACE(
+--                                                        REPLACE([Location served], CHAR(10), ' '),
+--                                                        CHAR(11),
+--                                                        ' '
+--                                                    ),
+--                                                    CHAR(12),
+--                                                    ' '
+--                                                ),
+--                                                CHAR(13),
+--                                                ' '
+--                                            ),
+--                                            CHAR(14),
+--                                            ' '
+--                                        ),
+--                                        CHAR(160),
+--                                        ' '
+--                                    ),
+--                                    CHAR(13) + CHAR(10),
+--                                    ' '
+--                                ),
+--                                CHAR(9),
+--                                ' '
+--                            ),
+--                            ' ',
+--                            CHAR(17) + CHAR(18)
+--                        ),
+--                        CHAR(18) + CHAR(17),
+--                        ''
+--                    ),
+--                    CHAR(17) + CHAR(18),
+--                    ' '
+--                )
+--            )
+--        )
+--    END AS Land,
+--    COUNT(IATA) AS Antal,
+--    COUNT(IATA) - COUNT(ICAO) AS AntalNoICAO,
+--    100 - FLOOR(COUNT(ICAO) * 100.0 / COUNT(IATA)) AS AndelNoICAO
+--FROM
+--    Airports
+--GROUP BY
+--    CASE
+--        WHEN CHARINDEX(',', [Location served]) > 0 THEN LTRIM(
+--            RTRIM(
+--                REPLACE(
+--                    REPLACE(
+--                        REPLACE(
+--                            REPLACE(
+--                                REPLACE(
+--                                    REPLACE(
+--                                        REPLACE(
+--                                            REPLACE(
+--                                                REPLACE(
+--                                                    REPLACE(
+--                                                        REPLACE(
+--                                                            REVERSE(
+--                                                                LEFT(
+--                                                                    REVERSE([Location served]),
+--                                                                    CHARINDEX(',', REVERSE([Location served])) -2
+--                                                                )
+--                                                            ),
+--                                                            CHAR(10),
+--                                                            ' '
+--                                                        ),
+--                                                        CHAR(11),
+--                                                        ' '
+--                                                    ),
+--                                                    CHAR(12),
+--                                                    ' '
+--                                                ),
+--                                                CHAR(13),
+--                                                ' '
+--                                            ),
+--                                            CHAR(14),
+--                                            ' '
+--                                        ),
+--                                        CHAR(160),
+--                                        ' '
+--                                    ),
+--                                    CHAR(13) + CHAR(10),
+--                                    ' '
+--                                ),
+--                                CHAR(9),
+--                                ' '
+--                            ),
+--                            ' ',
+--                            CHAR(17) + CHAR(18)
+--                        ),
+--                        CHAR(18) + CHAR(17),
+--                        ''
+--                    ),
+--                    CHAR(17) + CHAR(18),
+--                    ' '
+--                )
+--            )
+--        )
+--        WHEN CHARINDEX(';', [Location served]) > 0 THEN LTRIM(
+--            RTRIM(
+--                REPLACE(
+--                    REPLACE(
+--                        REPLACE(
+--                            REPLACE(
+--                                REPLACE(
+--                                    REPLACE(
+--                                        REPLACE(
+--                                            REPLACE(
+--                                                REPLACE(
+--                                                    REPLACE(
+--                                                        REPLACE(
+--                                                            REVERSE(
+--                                                                LEFT(
+--                                                                    REVERSE([Location served]),
+--                                                                    CHARINDEX(';', REVERSE([Location served])) -2
+--                                                                )
+--                                                            ),
+--                                                            CHAR(10),
+--                                                            ' '
+--                                                        ),
+--                                                        CHAR(11),
+--                                                        ' '
+--                                                    ),
+--                                                    CHAR(12),
+--                                                    ' '
+--                                                ),
+--                                                CHAR(13),
+--                                                ' '
+--                                            ),
+--                                            CHAR(14),
+--                                            ' '
+--                                        ),
+--                                        CHAR(160),
+--                                        ' '
+--                                    ),
+--                                    CHAR(13) + CHAR(10),
+--                                    ' '
+--                                ),
+--                                CHAR(9),
+--                                ' '
+--                            ),
+--                            ' ',
+--                            CHAR(17) + CHAR(18)
+--                        ),
+--                        CHAR(18) + CHAR(17),
+--                        ''
+--                    ),
+--                    CHAR(17) + CHAR(18),
+--                    ' '
+--                )
+--            )
+--        )
+--        ELSE LTRIM(
+--            RTRIM(
+--                REPLACE(
+--                    REPLACE(
+--                        REPLACE(
+--                            REPLACE(
+--                                REPLACE(
+--                                    REPLACE(
+--                                        REPLACE(
+--                                            REPLACE(
+--                                                REPLACE(
+--                                                    REPLACE(
+--                                                        REPLACE([Location served], CHAR(10), ' '),
+--                                                        CHAR(11),
+--                                                        ' '
+--                                                    ),
+--                                                    CHAR(12),
+--                                                    ' '
+--                                                ),
+--                                                CHAR(13),
+--                                                ' '
+--                                            ),
+--                                            CHAR(14),
+--                                            ' '
+--                                        ),
+--                                        CHAR(160),
+--                                        ' '
+--                                    ),
+--                                    CHAR(13) + CHAR(10),
+--                                    ' '
+--                                ),
+--                                CHAR(9),
+--                                ' '
+--                            ),
+--                            ' ',
+--                            CHAR(17) + CHAR(18)
+--                        ),
+--                        CHAR(18) + CHAR(17),
+--                        ''
+--                    ),
+--                    CHAR(17) + CHAR(18),
+--                    ' '
+--                )
+--            )
+--        )
+--    END;

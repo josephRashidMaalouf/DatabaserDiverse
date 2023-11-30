@@ -278,7 +278,11 @@ GO
 ----### CREATE Views ### ---
 
 --CREATE VIEW [TitlarPerFörfattare] AS
---SELECT ([First Name] + ' ' + [Last Name]) AS [Name], DATEDIFF(year, [Birthday], GETDATE()) AS [Age], COUNT(DISTINCT [Title]) AS [Titles], SUM(Quantity * [Price]) AS [Inventory value]
+--SELECT 
+--	([First Name] + ' ' + [Last Name]) AS [Name], 
+--	DATEDIFF(year, [Birthday], GETDATE()) AS [Age], 
+--	COUNT(DISTINCT [Title]) AS [Titles], 
+--	SUM(Quantity * [Price]) AS [Inventory value]
 --FROM Authors
 --FULL JOIN Author_Book ON Author_Book.AuthorId = Authors.Id
 --FULL JOIN Books ON Books.Isbn13 = Author_Book.Isbn13
