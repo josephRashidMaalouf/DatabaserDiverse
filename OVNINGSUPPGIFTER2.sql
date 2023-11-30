@@ -271,10 +271,10 @@ GO
 --INNER JOIN music.genres As gen ON gen.GenreId = t.GenreId
 
 --Här kommer rätt: Ger 14,57
-SELECT CAST(COUNT(DISTINCT art.[Name]) AS FLOAT) / CAST(COUNT(DISTINCT pl.[PlaylistId]) AS FLOAT) AS [Avarage]
-FROM music.tracks AS t
-INNER JOIN music.playlist_track AS pt ON pt.TrackId = t.TrackId
-INNER JOIN music.playlists AS pl on pl.PlaylistId = pt.PlaylistId
-INNER JOIN music.albums AS a on a.AlbumId = t.AlbumId
-INNER JOIN music.artists AS art ON art.ArtistId = a.ArtistId
-GO
+--SELECT CAST(COUNT(DISTINCT art.[Name]) AS FLOAT) / CAST(COUNT(DISTINCT pl.[PlaylistId]) AS FLOAT) AS [Avarage]
+--FROM music.tracks AS t
+--INNER JOIN music.playlist_track AS pt ON pt.TrackId = t.TrackId
+--INNER JOIN music.playlists AS pl on pl.PlaylistId = pt.PlaylistId
+--INNER JOIN music.albums AS a on a.AlbumId = t.AlbumId
+--INNER JOIN music.artists AS art ON art.ArtistId = a.ArtistId
+--GO
